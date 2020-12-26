@@ -1,0 +1,2 @@
+# temaSql
+AMIA sql assignment
