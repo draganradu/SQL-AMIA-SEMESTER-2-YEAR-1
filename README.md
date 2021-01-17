@@ -40,7 +40,7 @@ CREATE TABLE client (
 ##### TABELA INCHIRIERE
 
 | ID inchirire | ID Scula | ID Client | Data iesire | Data intrare | IS PAYED | NOTE |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- |
 | INT 6 uniq auto increment | INT 6 FK | INT 6 FK | DATA | DATA | BOOLEAN | STRING 500 | 
 
 ```sql
