@@ -24,11 +24,11 @@
     Liste
 </div>
 <li class="nav-item">
-    <a class="nav-link" href="ListaScule">
+    <a class="nav-link" href="listaScule">
         <i class="fas fa-fw fa-table"></i>
         <span>Scule</span>
     </a>
-    <a class="nav-link" href="ListaClienti">
+    <a class="nav-link" href="listaClienti">
         <i class="fas fa-fw fa-wrench"></i>
         <span>Clienti</span>
     </a>
@@ -40,11 +40,11 @@
     Insert
 </div>
 <li class="nav-item">
-    <a class="nav-link" href="InsertScule">
+    <a class="nav-link" href="insertScule">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Scule</span>
     </a>
-    <a class="nav-link" href="InsertClienti">
+    <a class="nav-link" href="insertClienti">
         <i class="fas fa-fw fa-folder"></i>
         <span>Clienti</span>
     </a>

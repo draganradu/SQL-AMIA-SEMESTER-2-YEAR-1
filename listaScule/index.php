@@ -194,7 +194,7 @@ if ($result->num_rows > 0) {
                         ?>
 
                         <div class="mb-4 col-md-6">
-                            <?= cardOutput( "Valoare medie reziduala Scule", $valReziduala . ' Euro') ?>
+                            <?= cardOutput( "Valoare medie reziduala Scule", number_format($valReziduala,2) . ' Euro') ?>
                         </div>
 
                         <div class="mb-4 col-md-6">
@@ -218,7 +218,7 @@ if ($result->num_rows > 0) {
                         ?>
 
                         <div class="mb-4 col-md-6">
-                            <?= cardOutput( "Scule inchiriate", $val . ' Euro') ?>
+                            <?= cardOutput( "Scule inchiriate", $val . ' Buc') ?>
                         </div>
 
                         <div class="mb-4 col-md-6">
@@ -243,7 +243,7 @@ if ($result->num_rows > 0) {
                         ?>
 
                         <div class="mb-4 col-md-6">
-                            <?= cardOutput( "Valoare pierduta in depreciere", $val . ' buc') ?>
+                            <?= cardOutput( "Valoare pierduta in depreciere", $val . ' Euro') ?>
                         </div>
 
                         <div class="mb-4 col-md-6">

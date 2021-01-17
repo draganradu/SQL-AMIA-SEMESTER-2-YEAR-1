@@ -1,8 +1,11 @@
-Inchiriere de scule Tema SQL
+# Inchiriere de scule Tema Baze de date SQL
+#### Student: Radu Dragan
+
+link:
 http://fotodex.ro/tema_sql/
 
-### Tabele 
-Tabela Scule
+### 1. Structura Tabele 
+##### Tabela Scule
 | ID Scula | Nume scula | Stare | Pret | valoare reziduala | Este Inchiriata | Data achizitie |
 | --- | --- | --- | --- | --- | --- | --- | 
 | INT 6 uniq auto increment | String 50 | INT 1 | INT 5 | INT 5 | BOOLEAN | DATE  | 
@@ -19,7 +22,7 @@ CREATE TABLE scule(
 )
 ```
 
-TABELA CLIENT
+#####  TABELA CLIENT
 | ID CLIENT | Nume Client | Prenume Client | Telefon | Email | 
 | --- | --- | --- | --- | --- |
 | INT 6 uniq auto increment | String 50 | String 50 | String 10 | String 50 |
@@ -34,7 +37,7 @@ CREATE TABLE client (
 )
 ```
 
-TABELA INCHIRIERE
+##### TABELA INCHIRIERE
 
 | ID inchirire | ID Scula | ID Client | Data iesire | Data intrare | IS PAYED | NOTE |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -55,18 +58,53 @@ create TABLE inchiriere(
 ```
 
 ### Pagini
-Lista Scule
+#### Lista Scule
 
 *TOATA TABELA 'SCULE'*
 ```sql
 SELECT IdScula, NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie FROM scule ORDER BY NumeScula ASC LIMIT 50
 ```
 
-Lista Clienti
-Lista Inchirieri
+*Valoarea totala Scule*
+```sql
+SELECT SUM(Pret) FROM scule
+```
 
-Lista scule disponibile
-Lista clienti care au scule inchiriate
-Cerere Inchiriere
+*Valoarea medie reziduala scule*
+```sql
+SELECT AVG(ValRezid) FROM scule
+```
+
+*Scule inchiriate*
+```sql
+SELECT COUNT(IdScula) FROM scule WHERE IsRented = 1
+```
+
+*Valoare pierduta catre depreciere*
+```sql
+SELECT SUM(Pret - ValRezid) FROM scule
+```
+
+#### Lista Clienti
+
+*TOATA TABELA 'Client'*
+```sql
+SELECT idClient, Nume, Prenume, Telefon, email FROM client ORDER BY Nume ASC LIMIT 50
+```
+
+*Numar total clienti*
+```sql
+SELECT COUNT(Nume) FROM client
+```
+
+#### Insert Clienti
+```sql
+INSERT INTO client (Nume, Prenume, Telefon, email) VALUES ('Ionescu','Radu', '0742056799', 'radu@dragan.ro')
+```
+
+#### Insert Scule
+```sql
+INSERT INTO scule (NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie) VALUES ('Ciocan Stanley 160Z','5', '8', '6', '1', '1/5/2018')
+```
 
 

@@ -1,6 +1,6 @@
 
 <?php 
-$pageName = 'InsertClienti';
+$pageName = 'insertClienti';
 $pageMetaName = 'Insert Clienti';
 $baseLevel = '../';
 

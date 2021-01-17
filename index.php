@@ -77,7 +77,7 @@ $baseLevel = './';
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-primary text-white shadow">
                                         <div class="card-body">
-                                            <a href='ListaScule' class='a-clean'>
+                                            <a href='listaScule' class='a-clean'>
                                                 Lista Scule
                                                 <div class="text-white-50 small">Tabel Complet</div>
                                             </a>
@@ -87,7 +87,7 @@ $baseLevel = './';
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-success text-white shadow">
                                         <div class="card-body">
-                                            <a href='InsertScule' class='a-clean'>
+                                            <a href='insertScule' class='a-clean'>
                                                 Insert Scule
                                                 <div class="text-white-50 small">Add to database</div>
                                             </a>
@@ -107,7 +107,7 @@ $baseLevel = './';
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-warning text-white shadow">
                                     <div class="card-body">
-                                            <a href='InsertClienti' class='a-clean'>
+                                            <a href='insertClienti' class='a-clean'>
                                                 Insert Clienti
                                                 <div class="text-white-50 small">Add to database</div>
                                             </a>

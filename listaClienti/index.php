@@ -109,7 +109,7 @@ if ($result->num_rows > 0) {
                         <!-- Content Column -->
                     <!-- DataTales Example -->
                         <div class="mb-4 col-md-12">
-                            <?= cardCode( "Toata tabela 'Scule'", $sql) ?>
+                            <?= cardCode( "Toata tabela 'Client'", $sql) ?>
                         </div>
                     </div>
 
@@ -165,11 +165,11 @@ if ($result->num_rows > 0) {
                             }
                         ?>
                         <div class="mb-4 col-md-6">
-                            <?= cardOutput( "Valoare investitie Scule", $sumaTotala . ' Clienti') ?>
+                            <?= cardOutput( "Total Clienti", $sumaTotala . '') ?>
                         </div>
 
                         <div class="mb-4 col-md-6">
-                            <?= cardCode( "Sum total 'Scule'",  $sqlTotal) ?>
+                            <?= cardCode( "count Clienti by Name",  $sqlTotal) ?>
                         </div>
 
 
