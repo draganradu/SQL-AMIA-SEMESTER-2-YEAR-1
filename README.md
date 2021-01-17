@@ -1,11 +1,13 @@
-Inchiriere de scule
-http://localhost/bazededate/radu_output/
+Inchiriere de scule Tema SQL
+http://fotodex.ro/tema_sql/
 
 ### Tabele 
 Tabela Scule
 | ID Scula | Nume scula | Stare | Pret | valoare reziduala | Este Inchiriata | Data achizitie |
 | --- | --- | --- | --- | --- | --- | --- | 
 | INT 6 uniq auto increment | String 50 | INT 1 | INT 5 | INT 5 | BOOLEAN | DATE  | 
+
+```sql
 CREATE TABLE scule(
     IdScula int AUTO_INCREMENT PRIMARY KEY,
     NumeScula varchar(50),
@@ -15,11 +17,14 @@ CREATE TABLE scule(
     IsRented boolean,
     DataAchizitie date
 )
+```
 
 TABELA CLIENT
 | ID CLIENT | Nume Client | Prenume Client | Telefon | Email | 
 | --- | --- | --- | --- | --- |
 | INT 6 uniq auto increment | String 50 | String 50 | String 10 | String 50 |
+
+```sql
 CREATE TABLE client (
     idClient int PRIMARY KEY AUTO_INCREMENT,
     Nume varchar(50) NOT NULL,
@@ -27,12 +32,15 @@ CREATE TABLE client (
     Telefon varchar(10) NOT NULL,
     email varchar(50) NOT NULL
 )
+```
 
 TABELA INCHIRIERE
 
 | ID inchirire | ID Scula | ID Client | Data iesire | Data intrare | IS PAYED | NOTE |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | INT 6 uniq auto increment | INT 6 FK | INT 6 FK | DATA | DATA | BOOLEAN | STRING 500 | 
+
+```sql
 create TABLE inchiriere(
     IdInchiriere int PRIMARY KEY AUTO_INCREMENT,
     IDScula int,
@@ -44,9 +52,16 @@ create TABLE inchiriere(
     FOREIGN KEY (IdScula) REFERENCES scule(IdScula),
     FOREIGN KEY (IdClient) REFERENCES client(IdClient)
 )
+```
 
 ### Pagini
 Lista Scule
+
+*TOATA TABELA 'SCULE'*
+```sql
+SELECT IdScula, NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie FROM scule ORDER BY NumeScula ASC LIMIT 50
+```
+
 Lista Clienti
 Lista Inchirieri
 
