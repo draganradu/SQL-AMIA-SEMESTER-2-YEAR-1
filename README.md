@@ -140,10 +140,116 @@ INSERT INTO client (Nume, Prenume, Telefon, email) VALUES ('Ionescu','Radu', '07
 INSERT INTO scule (NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie) VALUES ('Ciocan Stanley 160Z','5', '8', '6', '1', '1/5/2018')
 ```
 
-### Concluzii
-Bazele de date sunt o unealta moderna pentru a putea getiona un volum mare date inventariate. In aceast caz este un serviciu de Inchirieri scule.
+10. *Selectarea tuturor comenzilor Clientului ID2*
+```sql
+SELECT * FROM `inchiriere` WHERE IdClient = 2 LIMIT 20 
+```
 
-De la modul de inserare al clientilor pana la modul in care putem corela datele din 2 table un sistem de baze de date de tip SQL reduce in mod dramatic numarul de ore necesare pentru a putea avea o viziune asupra modului in care un inventar functioneaza.
+| IdInchiriere | IDScula| IdClient | DataIesire | DataIntrare | IsPaid | Note |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 1 | 1 | 2020-01-02 | 2020-01-04 | 1 | defect |
+| 2 | 6 | 2 | 2020-06-02 | 2020-06-04 | 1 | NULL |
+| 3 | 5| 2| 2020-08-02 | 2020-10-04| 0 | NULL |
+
+11. *Selectarea Idurilor comenzilor neplatite de catre Clientului ID2*
+```sql
+SELECT IdInchiriere FROM `inchiriere` WHERE IdClient = 2 AND IsPaid <> 1 LIMIT 20 
+```
+| IdInchiriere |
+| --- |
+| 3 |
+
+12. *Selecteaza anul si id-ul tuturor inchirierilor sculei cu ID 1*
+```sql
+SELECT IdInchiriere , EXTRACT(YEAR FROM DataIesire) FROM `inchiriere` WHERE IDScula = 1 
+```
+| IdInchiriere  | EXTRACT(YEAR FROM DataIesire) |
+| --- | --- |
+| 1 | 2020 |
+| 69 | 2000 |
+
+13. *Select full name of Cliants*
+```sql
+SELECT CONCAT(Nume, ' ',Prenume) AS FullName FROM client LIMIT 20 
+```
+| FullName |
+| --- |
+| Dragan Radu |
+| Armanad Anca |
+
+14. *Numar de inchirieri pentru scula cu ID 1 dupa 2020*
+```sql
+SELECT count(*) AS NumarInchirieri FROM inchiriere WHERE IDScula = 1 AND EXTRACT(YEAR FROM DataIesire) > 2020 LIMIT 20 
+```
+| NumarInchirieri |
+| --- |
+| 0 |
+
+15. *Numar distinct de scule Inchiriate*
+```sql
+SELECT COUNT(DISTINCT(IDScula)) AS NumarDeSculeDistincteInchiriate FROM inchiriere LIMIT 20
+```
+| NumarDeSculeDistincteInchiriate |
+| --- |
+| 3 |
+
+16. *NumeScula si IdScula care incepe cu C*
+```sql
+SELECT IdScula, NumeScula FROM scule WHERE NumeScula LIKE 'C%' LIMIT 20 
+```
+| IdScula | NumeScula |
+| --- | --- |
+| 1 | Ciocan 500g cu coada scurta |
+| 3 | Cutter |
+| 6 | Cantar de mana |
+
+17. *Select toate sculele cu valoare initiala intre 10 si 50*
+```sql
+SELECT * FROM scule WHERE Pret BETWEEN 10 AND 50 LIMIT 20 
+```
+
+| IdScula | NumeScula | Stare | Pret | ValRezid | IsRented | DataAchiziti |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Ciocan 500g cu coada scurta | 2 | 20 | 1 | 0 | 2018-07-13 |
+| 4 | WolfCraft 5205 | 9 | 25 | 22 | 0 | 2018-12-19 |
+| 7 | Hot glue gun Stanley | 6 | 30 | 3 | 0 | 2018-01-29 |
+
+18. *Select toate sculele cu valoare initiala intre 10 si 50 cu o valoare reziduala sub 20 *
+```sql
+SELECT * FROM scule WHERE Pret BETWEEN 10 AND 50 AND ValRezid < 20 LIMIT 20 
+```
+
+| IdScula | NumeScula | Stare | Pret | ValRezid | IsRented | DataAchiziti |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Ciocan 500g cu coada scurta | 2 | 20 | 1 | 0 | 2018-07-13 |
+| 7 | Hot glue gun Stanley | 6 | 30 | 3 | 0 | 2018-01-29 |
+
+
+19. *Select toate sculele care nu au id 1 sau 5*
+```sql
+SELECT * FROM inchiriere WHERE IDScula NOT IN (1,5) LIMIT 20 
+```
+| IdInchiriere  | IDScula | IdClient  | DataIesire  | DataIntrate  | IsPaid  | Note  |
+| --- | --- | --- | --- | --- | --- | --- |
+| 2 | 6 | 2 | 2020-06-02 | 2020-06-04 | 1 | NULL |  
+
+20. 
+```sql
+SELECT * FROM scule WHERE DataAchizitie BETWEEN "2018-06-13" AND "2020-01-01" ORDER BY DataAchizitie DESC LIMIT 20  
+```
+| IdScula | NumeScula | Stare | Pret | ValRezid | IsRented | DataAchiziti |
+| --- | --- | --- | --- | --- | --- | --- |
+| 4 | WolfCraft 5205 | 9 | 25 | 22 | 0 | 2018-12-19 |
+| 1 | Ciocan 500g cu coada scurta | 2 | 20 | 1 | 0 | 2018-07-13 |
+| 2 | Surubelnita PZ2/M10x5 | 8 | 8 | 7 | 1 | 2018-07-13 |
+
+### Concluzii
+Bazele de date sunt o unealta moderna pentru a putea getiona un volum mare de date inventariate. In aceast caz este un serviciu de inchirieri scule. Avand in vedere informatizarea si interactiunea online a clientilor, o inventariere digitala devine un element obligatoriu al gestionarii inventarului. 
+Din perspectiva companiei, un audit al datelor digitalizate de tip SQL scade timpul de munca substantial. O verificare a datelor de inchriere pentru "Surubelnita PZ2/M10x5"
+
+De la modul de inserare al clientilor pana la modul in care putem corela datele din 2 tabele, un sistem de baze de date de tip SQL reduce in mod dramatic numarul de ore necesare pentru a putea avea o viziune asupra modului in care un inventar functioneaza.
+
+
 
 
 ### Bibliografie
