@@ -81,40 +81,40 @@ SELECT IdScula, NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie FROM s
 
 2. *Valoarea totala a tuturor sculelor din tabela Scule*
 ```sql
-SELECT SUM(Pret) FROM scule
+SELECT SUM(Pret) AS valoareScule FROM scule LIMIT 100
 ```
-| SUM(Pret) |
+| valoareScule |
 | --- |
 | 94 |
 
 3. *Valoarea medie reziduala scule*
 ```sql
-SELECT AVG(ValRezid) FROM scule
+SELECT AVG(ValRezid) AS valoareRezidualaMedie FROM scule LIMIT 100
 ```
-| AVG(ValRezid) |
+| valoareRezidualaMedie |
 | --- |
 | 6.14 |
 
 4. *Scule inchiriate*
 ```sql
-SELECT COUNT(IdScula) FROM scule WHERE IsRented = 1
+SELECT COUNT(IdScula) AS totalSculeInchiriate FROM scule WHERE IsRented = 1 LIMIT 100
 ```
-| COUNT(IdScula) |
+| totalSculeInchiriate |
 | --- |
 | 1 |
 
 5. *Valoare pierduta catre depreciere*
 ```sql
-SELECT SUM(Pret - ValRezid) FROM scule
+SELECT SUM(Pret - ValRezid) AS valoarePieduta FROM scule LIMIT 100
 ```
-| SUM(Pret - ValRezid) |
+| valoarePieduta |
 | --- |
 | 51 |
 
 
 6. *TOATA TABELA 'Client'*
 ```sql
-SELECT idClient, Nume, Prenume, Telefon, email FROM client ORDER BY Nume ASC LIMIT 50
+SELECT idClient, Nume, Prenume, Telefon, email FROM client ORDER BY Nume ASC LIMIT 100
 ```
 | idClient | Nume | Prenume | Telefon | email |
 | --- | --- | --- | --- | --- |
@@ -123,9 +123,9 @@ SELECT idClient, Nume, Prenume, Telefon, email FROM client ORDER BY Nume ASC LIM
 
 7. *Numar total clienti*
 ```sql
-SELECT COUNT(Nume) FROM client
+SELECT COUNT(Nume) AS totalClienti FROM client LIMIT 100
 ```
-| COUNT(Nume) |
+| totalClienti |
 | --- |
 | 2 |
 
@@ -142,7 +142,7 @@ INSERT INTO scule (NumeScula, Stare, Pret, ValRezid, IsRented, DataAchizitie) VA
 
 10. *Selectarea tuturor comenzilor Clientului ID2*
 ```sql
-SELECT * FROM `inchiriere` WHERE IdClient = 2 LIMIT 20 
+SELECT * FROM `inchiriere` WHERE IdClient = 2 LIMIT 10 
 ```
 
 | IdInchiriere | IDScula| IdClient | DataIesire | DataIntrare | IsPaid | Note |
@@ -161,7 +161,7 @@ SELECT IdInchiriere FROM `inchiriere` WHERE IdClient = 2 AND IsPaid <> 1 LIMIT 2
 
 12. *Selecteaza anul si id-ul tuturor inchirierilor sculei cu ID 1*
 ```sql
-SELECT IdInchiriere , EXTRACT(YEAR FROM DataIesire) FROM `inchiriere` WHERE IDScula = 1 
+SELECT IdInchiriere , EXTRACT(YEAR FROM DataIesire) FROM `inchiriere` WHERE IDScula = 1 LIMIT 100
 ```
 | IdInchiriere  | EXTRACT(YEAR FROM DataIesire) |
 | --- | --- |
@@ -233,7 +233,7 @@ SELECT * FROM inchiriere WHERE IDScula NOT IN (1,5) LIMIT 20
 | --- | --- | --- | --- | --- | --- | --- |
 | 2 | 6 | 2 | 2020-06-02 | 2020-06-04 | 1 | NULL |  
 
-20. 
+20.  *Select toate sculele care au fost achizitionate intre 13 Iunie 2018 si 1 Ianuarie 2020
 ```sql
 SELECT * FROM scule WHERE DataAchizitie BETWEEN "2018-06-13" AND "2020-01-01" ORDER BY DataAchizitie DESC LIMIT 20  
 ```
@@ -245,15 +245,17 @@ SELECT * FROM scule WHERE DataAchizitie BETWEEN "2018-06-13" AND "2020-01-01" OR
 
 ### Concluzii
 Bazele de date sunt o unealta moderna pentru a putea getiona un volum mare de date inventariate. In aceast caz este un serviciu de inchirieri scule. Avand in vedere informatizarea si interactiunea online a clientilor, o inventariere digitala devine un element obligatoriu al gestionarii inventarului. 
-Din perspectiva companiei, un audit al datelor digitalizate de tip SQL scade timpul de munca substantial. O verificare a datelor de inchriere pentru "Surubelnita PZ2/M10x5"
-
-De la modul de inserare al clientilor pana la modul in care putem corela datele din 2 tabele, un sistem de baze de date de tip SQL reduce in mod dramatic numarul de ore necesare pentru a putea avea o viziune asupra modului in care un inventar functioneaza.
-
+Din perspectiva companiei, un audit al datelor digitalizate de tip SQL scade timpul de munca substantial. O verificare a datelor de inchriere pentru "Surubelnita PZ2/M10x5" se poate face rapid cu un select in tabela de inchiriere dupa id-ul sculei care in acest caz este 2. In cazul datelor nedigitalizate ar trebui cautat in registrul de scule dupa numele surubelnitei pentru a afla id-ul si data achizitiei. Ulterior se merge pe registrele de inchiriere incepand cu data achizitiei, in acest caz 13 Iulie 2018, si se verifica fiecare intrare. In cazul in care id-ul echipamentului inchiriat se potriveste, notam intr-un tabel separat intrarile. 
+Formatul digital ne ajuta sa calculam si numarul de inchirieri pe an pentru fiecare echipament in parte. Acest pas se poate face cu un select in care se numara intrarile pentru fiecare scula distincta din tabela de inchirieri. Aceasi verificare facuta manual necesita insumarea manuala a fiecarei intrari din anul respectiv, care in cazul unei firme cu rulaj zilnic ar putea dura cateva zile, sau un numar crescut de oameni. Pe langa asta poate aparea eroarea umana data de oboseala sau neatentie in numararea intrarilor separate ceea ce poate duce la un numar mai mare sau mai mic de scule decat cel din inventar sau la o suma a tuturor intrarilor diferita fata de cea din registru.
+Se poate observa astfel ca o inventarierea digitala in format SQL reduce numarul de ore, resursele necesare si posibilele erori umane ce pot aparea in timpul unui audit.
 
 
 
 ### Bibliografie
 https://dev.mysql.com/doc/
+
 https://www.w3schools.com/php/php_mysql_intro.asp
+
 https://www.php.net/manual/en/function.mysql-query.php
+
 https://startbootstrap.com/theme/sb-admin-2
